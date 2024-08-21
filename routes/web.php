@@ -45,4 +45,4 @@ Route::post('/dashboard/store', [PostJobController::class,'store'])->name('store
 Route::get('/dashboard/{{id}}/edit', [PostJobController::class,'store'])->name('edit.post.job');
 Route::get('/dashboard/index', [PostJobController::class,'index'])->name('index.job');
 
-Route::get('data-tables-data', 'DataTablesController@data')->name('data.tables.data');
+Route::get('data-tables-data', [\App\Http\Controllers\DataTablesController::class ,'data'])->name('data.tables.data');
