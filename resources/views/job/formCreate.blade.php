@@ -20,7 +20,7 @@
             @endif
             <div class="form-group">
                 <label for="">سمت شغلی</label>
-                <textarea name="rolse" class="form-control summernote"></textarea>
+                <input type="text" name="rolse" class="form-control ">
             </div>
             @if($errors->has('rolse'))
                 <span class="text-danger">{{$errors->first('rolse')}}</span>

@@ -37,4 +37,15 @@ class PostJobController extends Controller
     ]);
     return back();
     }
+
+    public function edit($job)
+    {
+        $job = Listing::find($job);
+      return view('job.formEdit', compact('job'));
+    }
+
+    public function update()
+    {
+
+    }
 }
