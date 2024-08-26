@@ -50,10 +50,10 @@ crossorigin="anonymous"></script>
                 { data: 'address', name: 'address' },
                 { data: 'salary', name: 'salary' },
                 { data: 'action', name: 'action' },
-
             ]
 
         });
+
     })
 
 </script>

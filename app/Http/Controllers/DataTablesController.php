@@ -20,7 +20,9 @@ class DataTablesController extends Controller
                     return $time->diff(Carbon::now())->format('%y سال')  ;
                 })
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href='. route('edit.post.job', $row->id).' class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                    $actionBtn = '<a href='. route('edit.post.job', $row->id).' class="edit btn btn-success btn-sm">Edit</a>
+                                  <button type="button"  class="delete btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal'.$row->id.'">Delete</button>';
+
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -40,4 +42,5 @@ class DataTablesController extends Controller
 //            ->rawColumns(['action'])
 //            ->make(true);
     }
+
 }

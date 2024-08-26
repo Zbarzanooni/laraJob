@@ -10,6 +10,6 @@ class Listing extends Model
     use HasFactory;
     protected $fillable =
         [
-        'title','description','salary','rolse','address','deadline','image','job_type','user_id'
+        'id','title','description','salary','rolse','address','deadline','image','job_type','user_id'
         ];
 }

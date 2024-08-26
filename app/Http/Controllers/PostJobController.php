@@ -14,7 +14,8 @@ class PostJobController extends Controller
 {
     public  function index()
     {
-        return view('job.index');
+        $jobs = Listing::all();
+        return view('job.index',compact('jobs'));
     }
     public function create()
     {
@@ -59,4 +60,11 @@ class PostJobController extends Controller
         $job->update($request->all());
         return redirect()->route('index.job');
     }
+
+    public function destroy(Listing $id)
+    {
+        $id->delete();
+        return redirect()->route('index.job');
+    }
+
 }
