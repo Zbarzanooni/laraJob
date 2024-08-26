@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostJobRequest;
+use App\Http\Requests\UpdatePostJobRequest;
 use App\Models\listing;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -44,8 +45,18 @@ class PostJobController extends Controller
       return view('job.formEdit', compact('job'));
     }
 
-    public function update()
+    public function update(UpdatePostJobRequest $request, $id)
     {
-
+        $job = Listing::find($id);
+        if ($request->has('image')){
+            $imgPath = $request->file('image')->store('image', 'public');
+            $job->image = $imgPath;
+            $job->user_id = auth()->user()->id;
+            $job->update($request->all());
+            $job->save();
+            return redirect()->route('index.job');
+        }
+        $job->update($request->all());
+        return redirect()->route('index.job');
     }
 }

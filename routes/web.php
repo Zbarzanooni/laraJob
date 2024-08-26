@@ -44,8 +44,9 @@ Route::controller(PostJobController::class)->middleware(['auth','verified'])->gr
     Route::get('/dashboard/create','create')->name('post.job');
     Route::post('/dashboard/store','store')->name('store.post.job');
     Route::get('/dashboard/{id}/edit','edit')->name('edit.post.job');
-    Route::put('/dashboard/update','update')->name('update.post.job');
+    Route::put('/dashboard/update/{id}','update')->name('update.post.job');
     Route::get('/dashboard/index','index')->name('index.job');
+    Route::post('/dashboard/delete/{id}', 'destroy')->name('destroy.job');
 });
 
 Route::get('data-tables-data', [\App\Http\Controllers\DataTablesController::class ,'data'])->name('data.tables.data');

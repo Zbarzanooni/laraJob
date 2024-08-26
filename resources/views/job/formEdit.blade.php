@@ -1,11 +1,8 @@
 @extends('layouts.admin.main')
-@php
-isset($job) ?"ff":"sd";
-@endphp
 @section('content')
     <div class="container">
         <div class="col-md-6 p-5">
-            <form action="{{route('update.post.job')}}" method="post" enctype="multipart/form-data">@csrf
+            <form action="{{route('update.post.job',$job->id)}}" method="post" enctype="multipart/form-data">@csrf
                 @method('PUT')
                 <div class="form-group">
                     <label for="">عنوان شغل</label>
