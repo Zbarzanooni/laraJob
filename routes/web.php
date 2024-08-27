@@ -14,7 +14,9 @@ use \App\Http\Controllers\PostJobController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/',function (){
+    return view('home');
+});
 Route::get('/email/verify/{id}/{hash}', function (\Illuminate\Foundation\Auth\EmailVerificationRequest $request) {
     $request->fulfill();
 
@@ -22,13 +24,13 @@ Route::get('/email/verify/{id}/{hash}', function (\Illuminate\Foundation\Auth\Em
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::get('/users', [UserController::class,'index']);
-Route::get('/register/seeker', [UserController::class, 'createSeeker'])->name('create.seeker');
+Route::get('/register/seeker', [UserController::class, 'createSeeker'])->name('create.seeker')->middleware(\App\Http\Middleware\AuthCheck::class);
 Route::post('/register/seeker', [UserController::class, 'storeSeeker'])->name('store.seeker');
 
-Route::get('/register/employer', [UserController::class, 'createEmployer'])->name('create.employer');
+Route::get('/register/employer', [UserController::class, 'createEmployer'])->name('create.employer')->middleware(\App\Http\Middleware\AuthCheck::class);
 Route::post('/register/employer', [UserController::class, 'storeEmployer'])->name('store.employer');
 
-Route::get('/login', [UserController::class, 'login'])->name('login');
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware(\App\Http\Middleware\AuthCheck::class);
 Route::post('/login', [UserController::class, 'postLogin'])->name('store.login');
 
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');

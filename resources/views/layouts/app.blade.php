@@ -16,8 +16,14 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">خانه </a>
+                        <a class="nav-link active" aria-current="page" href="/">خانه </a>
                     </li>
+                    @if(auth()->user())
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('login')}}">پروفایل </a>
+                        </li>
+                    @endif
+                    @if(!auth()->check())
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('login')}}">ورود </a>
                     </li>
@@ -27,6 +33,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('create.employer')}}">ورود کارفرما </a>
                     </li>
+                    @endif
                 </ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

@@ -51,13 +51,9 @@ class PostJobController extends Controller
         $job = Listing::find($id);
         if ($request->has('image')){
             $imgPath = $request->file('image')->store('image', 'public');
-            $job->image = $imgPath;
-            $job->user_id = auth()->user()->id;
-            $job->update($request->all());
-            $job->save();
-            return redirect()->route('index.job');
+            $job->update(['image'=>$imgPath]);
         }
-        $job->update($request->all());
+        $job->update($request->except('image'));
         return redirect()->route('index.job');
     }
 
