@@ -32,8 +32,10 @@ Route::post('/register/employer', [UserController::class, 'storeEmployer'])->nam
 
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware(\App\Http\Middleware\AuthCheck::class);
 Route::post('/login', [UserController::class, 'postLogin'])->name('store.login');
-
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+
+Route::get('user/profile', [UserController::class, 'ProfileSeeker'])->name('user.profile.seeker');
+Route::post('user/profile', [UserController::class, 'UpdateProfileSeeker'])->name('user.update.profile.seeker');
 
 Route::controller(DashboardController::class)->middleware(['auth','verified'])->group(function () {
     Route::get('/dashboard', 'index')->name('dashboard');
@@ -43,12 +45,12 @@ Route::controller(DashboardController::class)->middleware(['auth','verified'])->
 });
 
 Route::controller(PostJobController::class)->middleware(['auth','verified'])->group(function () {
-    Route::get('/dashboard/create','create')->name('post.job');
-    Route::post('/dashboard/store','store')->name('store.post.job');
-    Route::get('/dashboard/{id}/edit','edit')->name('edit.post.job');
-    Route::put('/dashboard/update/{id}','update')->name('update.post.job');
-    Route::get('/dashboard/index','index')->name('index.job');
-    Route::post('/dashboard/delete/{id}', 'destroy')->name('destroy.job');
+    Route::get('/job/create','create')->name('post.job');
+    Route::post('/job/store','store')->name('store.post.job');
+    Route::get('/job/{id}/edit','edit')->name('edit.post.job');
+    Route::put('/job/update/{id}','update')->name('update.post.job');
+    Route::get('/job/index','index')->name('index.job');
+    Route::post('/job/delete/{id}', 'destroy')->name('destroy.job');
 });
 
 Route::get('data-tables-data', [\App\Http\Controllers\DataTablesController::class ,'data'])->name('data.tables.data');

@@ -20,7 +20,7 @@
                     </li>
                     @if(auth()->user())
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('login')}}">پروفایل </a>
+                            <a class="nav-link" href="{{route('user.profile.seeker')}}">پروفایل </a>
                         </li>
                     @endif
                     @if(!auth()->check())

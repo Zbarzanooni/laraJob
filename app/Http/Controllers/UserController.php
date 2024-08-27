@@ -68,4 +68,18 @@ class UserController extends Controller
         Auth::logout();
         return redirect()->route('login')->with('success', 'کاربر با موفقیت خارج شد.');
     }
+
+    public function ProfileSeeker(){
+
+      return view('profile.profileSeeker');
+    }
+    public function UpdateProfileSeeker(Request $request)
+    {
+        if ($request->has('profile_pic')){
+            $imgPath = $request->file('profile_pic')->store('image', 'public');
+            \auth()->user()->update(['profile_pic'=>$imgPath]);
+        }
+        \auth()->user()->update($request->except('profile_pic'));
+        return back();
+    }
 }
