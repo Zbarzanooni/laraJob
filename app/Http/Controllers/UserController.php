@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     const JOB_SEEKER = 'seeker';
+    const JOB_EMPLOYER = 'employer';
   public function index()
   {
       return view('layouts.app');
@@ -39,7 +40,7 @@ class UserController extends Controller
             'name'     => request('name'),
             'email'    => request('email'),
             'password' => bcrypt(request('password')),
-            'user_type'=> self::JOB_SEEKER
+            'user_type'=> self::JOB_EMPLOYER
         ]);
        $user->sendEmailVerificationNotification();
        return redirect()->route('login')->whit('sucsessMesage', 'تبریک عضو ما شدی :)');
@@ -58,7 +59,11 @@ class UserController extends Controller
         $info = $request->only('email', 'password');
         if (Auth::attempt($info))
         {
-            return redirect()->route('dashboard');
+            if (\auth()->user()->user_type=='employer')
+            {
+                return redirect()->route('dashboard.profile');
+            }else
+            return redirect('/');
         }
         return redirect()->route('login')->with('errorMessage', 'یه اشتباهی شده دوباره وارد شو');
     }

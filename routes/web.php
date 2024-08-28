@@ -34,13 +34,16 @@ Route::get('/login', [UserController::class, 'login'])->name('login')->middlewar
 Route::post('/login', [UserController::class, 'postLogin'])->name('store.login');
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
-Route::get('user/profile', [UserController::class, 'ProfileSeeker'])->name('user.profile.seeker');
+Route::get('user/profile', [UserController::class, 'ProfileSeeker'])->name('user.profile.seeker')->middleware(['auth','verified']);
 Route::post('user/profile', [UserController::class, 'UpdateProfileSeeker'])->name('user.update.profile.seeker');
 
 Route::controller(DashboardController::class)->middleware(['auth','verified'])->group(function () {
     Route::get('/dashboard', 'index')->name('dashboard');
     Route::get('/dashboard/verify','verify')->name('verification.notice');
     Route::get('/resend/verify/email', 'resend')->name('resend.verify');
+
+    Route::get('dashboard/profile', 'Profile')->name('dashboard.profile')->middleware(['auth','verified']);
+    Route::post('dashboard/profile', 'UpdateProfile')->name('update.profile');
 
 });
 

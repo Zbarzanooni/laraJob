@@ -16,7 +16,7 @@
                     <input type="text" class="form-control" name="name" value="{{auth()->user()->name}}">
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-success"  value="go">
+                    <input type="submit" class="btn btn-success"  value="ویرایش">
                 </div>
             </form>
         </div>

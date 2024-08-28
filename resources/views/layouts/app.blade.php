@@ -22,6 +22,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('user.profile.seeker')}}">پروفایل </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('logout')}}">خروج </a>
+                        </li>
                     @endif
                     @if(!auth()->check())
                     <li class="nav-item">

@@ -24,5 +24,19 @@ class DashboardController extends Controller
       }
       $user->sendEmailVerificationNotification();
   }
+  public function profile()
+  {
+      return view('profile.profile');
+  }
+
+  public function UpdateProfile(Request $request)
+  {
+      if ($request->has('profile_pic')){
+          $imgPath = $request->file('profile_pic')->store('image', 'public');
+          \auth()->user()->update(['profile_pic'=>$imgPath]);
+      }
+      \auth()->user()->update($request->except('profile_pic'));
+      return back();
+  }
 
 }
