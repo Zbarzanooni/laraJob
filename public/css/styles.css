@@ -83,6 +83,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+    direction: rtl;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -102,6 +103,7 @@ body {
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    direction: rtl;
 }
 
 hr {
@@ -3291,8 +3293,8 @@ textarea.form-control-lg {
   --bs-position: end;
 }
 .dropdown-menu-end[data-bs-popper] {
-  right: 0;
-  left: auto;
+  right: auto;
+  left: 0;
 }
 
 @media (min-width: 576px) {
@@ -10930,7 +10932,7 @@ body {
   overflow-y: auto;
 }
 .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
-  padding-left: 225px;
+  padding-right: 225px;
   top: 56px;
 }
 
@@ -11240,4 +11242,10 @@ body {
   width: 20px !important;
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
+}
+.list-group{
+    border: 1px solid #cbccce;
+    border-radius: 2rem;
+    box-shadow: #cbccce;
+    padding :3rem;
 }
