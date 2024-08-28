@@ -44,6 +44,8 @@ Route::controller(DashboardController::class)->middleware(['auth','verified'])->
 
     Route::get('dashboard/profile', 'Profile')->name('dashboard.profile')->middleware(['auth','verified']);
     Route::post('dashboard/profile', 'UpdateProfile')->name('update.profile');
+    Route::post('password/change', 'UpdateNewPassword')->name('update.user.password');
+    Route::post('upload/resume', 'UploadResume')->name('upload.resume');
 
 });
 

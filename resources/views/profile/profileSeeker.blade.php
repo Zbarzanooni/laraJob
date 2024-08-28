@@ -2,6 +2,16 @@
 
 @section('content')
     <div class="container">
+        <div class="col-md-8">
+            <div class="col-md-4">
+                <ul class="d-none po-list" id="size" name="size">
+                        <li value=""><span>اطلاعات حساب کاربری </span></li>
+                        <li value=""><span> تغییر رمز عبور </span></li>
+                        <li value=""><span>اپلود رزومه </span></li>
+                </ul>
+            </div>
+            <div class="col-md-8"></div>
+        </div>
         <div class="col-md-6 p-5">
             <form action="{{route('user.update.profile.seeker')}}" method="post" enctype="multipart/form-data">@csrf
                 <div class="form-group">
