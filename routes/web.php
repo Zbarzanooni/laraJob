@@ -61,3 +61,4 @@ Route::controller(PostJobController::class)->middleware(['auth','verified'])->gr
 Route::get('data-tables-data', [\App\Http\Controllers\DataTablesController::class ,'data'])->name('data.tables.data');
 
 Route::get('/applicant', [\App\Http\Controllers\ApplicantController::class, 'index'])->name('applicant.index');
+Route::get('/applicant/{slug}', [\App\Http\Controllers\ApplicantController::class, 'show'])->name('applicant.show');
