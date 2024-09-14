@@ -31,6 +31,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'plan'
     ];
 
+    public function listig(){
+        return $this->belongsToMany(User::class,'listing_user','user_id', 'listing_id')
+            ->withPivot('interview')
+            ->withTimestamps();
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

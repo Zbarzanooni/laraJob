@@ -52,6 +52,31 @@
         </div>
     </div>
 @endsection
-<script>
+@section('script')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
 
-</script>
+                processing: true,
+
+                serverSide: true,
+
+                ajax: "{{ route('data.tables.data') }}",
+
+                columns: [
+                    { data: 'title', name: 'title' },
+                    { data: 'rolse', name: 'rolse' },
+                    { data: 'job_type', name: 'job_type' },
+                    { data: 'deadline', name: 'deadline' },
+                    { data: 'address', name: 'address' },
+                    { data: 'salary', name: 'salary' },
+                    { data: 'action', name: 'action' },
+                ]
+
+            });
+
+        })
+
+    </script>
+
+@endsection

@@ -32,31 +32,6 @@ crossorigin="anonymous"></script>
         $('.summernote').summernote();
     });
 </script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#dataTable').DataTable({
-
-            processing: true,
-
-            serverSide: true,
-
-            ajax: "{{ route('data.tables.data') }}",
-
-            columns: [
-                { data: 'title', name: 'title' },
-                { data: 'rolse', name: 'rolse' },
-                { data: 'job_type', name: 'job_type' },
-                { data: 'deadline', name: 'deadline' },
-                { data: 'address', name: 'address' },
-                { data: 'salary', name: 'salary' },
-                { data: 'action', name: 'action' },
-            ]
-
-        });
-
-    })
-
-</script>
-
+@yield('script')
 </body>
 </html>
