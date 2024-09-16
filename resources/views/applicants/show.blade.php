@@ -7,7 +7,7 @@
             </div>
         </div>
         @foreach($job->users as $user)
-            <div class="card mt-5 {{$user->pivot->interview ? 'card-border' : ''}}">
+            <div class="card mt-5 {{$user->pivot->interview ? 'bg-card' : ''}}">
                 <div class="row g-0">
                     <div class="col-auto">
                         @if($user->profile_pic)
@@ -24,12 +24,10 @@
                         </div>
                     </div>
                     <div class="col-auto align-self-center">
-                        <a href="{{Storage::url($user->resume)}}" class="btn btn-primary">دانلود رزومه </a>
-                        <form action="" method="post">
+                        <form action="{{route('applicant.interview',[$job->id, $user->id])}}" method="post">
                             @csrf
-
-                            <a href="" class="btn btn-dark">تایید برای مصاحبه </a>
-                            <a href="" class="btn btn-danger">رد </a>
+                            <a href="{{Storage::url($user->resume)}}" class="btn btn-primary">دانلود رزومه </a>
+                            <button type="submit" class=" btn btn-dark">تایید برای مصاحبه </button>
                         </form>
                     </div>
                 </div>
@@ -37,5 +35,9 @@
             </div>
         @endforeach
         </div>
-
+<style>
+    .bg-card{
+        background-color: green;
+    }
+</style>
 @endsection
