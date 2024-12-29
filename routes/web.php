@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\DashboardController;
 use \App\Http\Controllers\PostJobController;
+use \App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +15,9 @@ use \App\Http\Controllers\PostJobController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/',function (){
-    return view('home');
-});
+
+Route::get('/',[HomeController::class, 'index'])->name('home')->middleware(['auth','verified']);
+Route::get('/show/{slug}',[HomeController::class, 'show'])->name('home.show');
 Route::get('/email/verify/{id}/{hash}', function (\Illuminate\Foundation\Auth\EmailVerificationRequest $request) {
     $request->fulfill();
 
@@ -63,3 +64,4 @@ Route::get('data-tables-data', [\App\Http\Controllers\DataTablesController::clas
 Route::get('/applicant', [\App\Http\Controllers\ApplicantController::class, 'index'])->name('applicant.index');
 Route::get('/applicant/{slug}', [\App\Http\Controllers\ApplicantController::class, 'show'])->name('applicant.show');
 Route::post('/interview/{listing_id}/{user_id}', [\App\Http\Controllers\ApplicantController::class, 'interview'])->name('applicant.interview');
+Route::post('/send/resume', [\App\Http\Controllers\ApplicantController::class, 'sendResume'])->name('applicant.sendResume');

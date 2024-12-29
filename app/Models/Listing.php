@@ -27,4 +27,9 @@ class Listing extends Model
             ->withPivot('interview')
             ->withTimestamps();
     }
+
+    public function profile()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

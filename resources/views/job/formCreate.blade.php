@@ -1,8 +1,8 @@
 @extends('layouts.admin.main')
 
 @section('content')
-<div class="container">
-    <div class="col-md-6 p-5">
+
+    <div class=" p-5">
         <form action="{{route('store.post.job')}}" method="post" enctype="multipart/form-data">@csrf
             <div class="form-group">
                 <label for="">عنوان شغل</label>
@@ -76,6 +76,6 @@
             </div>
         </form>
     </div>
-</div>
+
 
 @endsection
