@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\UserRegistrationRequest;
 use App\Services\Users\UserService;
 use Illuminate\Http\Request;
@@ -45,12 +46,8 @@ class UserController extends Controller
     {
       return view('user.login');
     }
-    public function postLogin(Request $request)
+    public function postLogin(LoginUserRequest $request)
     {
-        $request->validate([
-            'email'    =>['required'],
-            'password' =>['required']
-        ]);
         $info = $request->only('email', 'password');
         if (Auth::attempt($info))
         {
