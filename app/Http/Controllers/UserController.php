@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRegistrationRequest;
-use \App\Models\User;
+use App\Services\Users\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    const JOB_SEEKER = 'seeker';
-    const JOB_EMPLOYER = 'employer';
+    public function __construct(public UserService $userService)
+    {
+    }
   public function index()
   {
       return view('layouts.app');
@@ -21,14 +22,11 @@ class UserController extends Controller
   }
   public function storeSeeker(UserRegistrationRequest $request)
   {
-    $user = User::create([
-        'name'     => request('name'),
-        'email'    => request('email'),
-        'password' => bcrypt(request('password')),
-        'user_type'=> self::JOB_SEEKER
-        ]);
-      $user->sendEmailVerificationNotification();
-      return redirect()->route('login')->with('sucsessMesage', 'تبریک عضو ما شدی :)');
+      $result = $this->userService->RegisterUser('seeker');
+      if (!$result){
+          return redirect()->route($result->route);
+      }
+      return redirect()->route($result->route);
   }
     public function createEmployer()
     {
@@ -36,14 +34,11 @@ class UserController extends Controller
     }
     public function storeEmployer(UserRegistrationRequest $request)
     {
-       $user = User::create([
-            'name'     => request('name'),
-            'email'    => request('email'),
-            'password' => bcrypt(request('password')),
-            'user_type'=> self::JOB_EMPLOYER
-        ]);
-       $user->sendEmailVerificationNotification();
-       return redirect()->route('login')->whit('sucsessMesage', 'تبریک عضو ما شدی :)');
+      $result = $this->userService->RegisterUser('employer');
+      if (!$result){
+          return redirect()->route($result->route);
+      }
+        return redirect()->route($result->route);
     }
 
     public function login()

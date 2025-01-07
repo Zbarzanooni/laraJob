@@ -17,14 +17,22 @@
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     @if(auth()->user())
+                        <li class="nav-item dropdown">
+                            <button class="dropdown-toggle bg-success border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{\Illuminate\Support\Facades\Storage::url(auth()->user()->profile_pic ?? '')}}" width="40" class="rounded-circle" alt="">
+                            </button>
+                            <ul class="dropdown-menu bg-success">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('user.profile.seeker')}}">پروفایل </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('logout')}}">خروج </a>
+                                </li>
+                            </ul>
+
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link active text-white" aria-current="page" href="/">خانه </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('user.profile.seeker')}}">پروفایل </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('logout')}}">خروج </a>
                         </li>
                     @endif
                     @if(!auth()->check())
