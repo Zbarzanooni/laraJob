@@ -5,6 +5,7 @@ use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\DashboardController;
 use \App\Http\Controllers\PostJobController;
 use \App\Http\Controllers\HomeController;
+use \App\Http\Controllers\RoleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,6 +51,8 @@ Route::controller(DashboardController::class)->middleware(['auth','verified'])->
 
 });
 
+Route:: resource('dashboard/role',RoleController::class)->middleware(['auth','verified']);
+
 Route::controller(PostJobController::class)->middleware(['auth','verified'])->group(function () {
     Route::get('/job/create','create')->name('post.job');
     Route::post('/job/store','store')->name('store.post.job');
@@ -60,8 +63,10 @@ Route::controller(PostJobController::class)->middleware(['auth','verified'])->gr
 });
 
 Route::get('data-tables-data', [\App\Http\Controllers\DataTablesController::class ,'data'])->name('data.tables.data');
+Route::get('data-tables-data/roles', [\App\Http\Controllers\DataTablesController::class ,'getRoles'])->name('data.tables.getRoles');
 
 Route::get('/applicant', [\App\Http\Controllers\ApplicantController::class, 'index'])->name('applicant.index');
 Route::get('/applicant/{slug}', [\App\Http\Controllers\ApplicantController::class, 'show'])->name('applicant.show');
 Route::post('/interview/{listing_id}/{user_id}', [\App\Http\Controllers\ApplicantController::class, 'interview'])->name('applicant.interview');
 Route::post('/send/resume', [\App\Http\Controllers\ApplicantController::class, 'sendResume'])->name('applicant.sendResume');
+

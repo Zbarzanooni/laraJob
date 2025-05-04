@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Services\Users;
+namespace App\Services;
 
 use App\Models\User;
-use App\Services\ResultService;
 use PharIo\Version\Exception;
-use PhpParser\Node\Expr\New_;
 
 class UserService
 {

@@ -9,7 +9,7 @@ use Spatie\Sluggable\SlugOptions;
 
 class Listing extends Model
 {
-    use HasSlug;
+     use HasSlug;
     use HasFactory ;
     public function getSlugOptions() : SlugOptions
     {
