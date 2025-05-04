@@ -1,0 +1,75 @@
+@extends('layouts.admin.main')
+@section('content')
+    <div class="container">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    تمامی نقش ها
+                </div>
+                <div class="card-body">
+                    <a class ="btn btn-success" href="{{route('role.create')}}">ایجاد نقش </a>
+                    <table class="table table-bordered data-table" id="dataTable">
+                        <thead>
+                        <tr>
+                            <th>عنوان نقش</th>
+                            <th>توضیحات </th>
+                            <th width="105px" name="action">Action</th>
+                        </tr>
+                        </thead>
+
+                    </table>
+
+                </div>
+                @foreach($roles as $role)
+                    <div class="modal fade" id="exampleModal{{ $role->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">حذف اطلاعات</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ایا از عملایات حذف اطمینان دارید؟؟
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن </button>
+                                    <form action="{{route('destroy.job',[$role->id])}}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary"> حذف </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+@endsection
+@section('script')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+
+                processing: true,
+
+                serverSide: true,
+
+                ajax: "{{ route('data.tables.getRoles') }}",
+
+                columns: [
+                    { data: 'name', name: 'name' },
+                    { data: 'description', name: 'description' },
+                    { data: 'action', name: 'action' },
+                ]
+
+            });
+
+        })
+
+    </script>
+
+@endsection
