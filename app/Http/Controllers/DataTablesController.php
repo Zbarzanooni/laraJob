@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use App\Models\Permission;
 use App\Models\Role;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -48,6 +49,22 @@ class DataTablesController extends Controller
     {
         if ($request->ajax()) {
             $data = Role::all();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $actionBtn = '<a href='. route('edit.post.job', $row->id).' class="edit btn btn-success btn-sm">Edit</a>
+                                  <button type="button"  class="delete btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal'.$row->id.'">Delete</button>';
+
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
+    public function getPermissions(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Permission::all();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
