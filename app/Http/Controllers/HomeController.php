@@ -10,7 +10,6 @@ class HomeController extends Controller
    public function index()
    {
        $jobs = Listing::all();
-       dd(auth()->user()->role);
        return view('home',compact('jobs'));
    }
 

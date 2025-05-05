@@ -52,6 +52,7 @@ Route::controller(DashboardController::class)->middleware(['auth','verified'])->
 });
 
 Route:: resource('dashboard/role',RoleController::class)->middleware(['auth','verified']);
+Route:: resource('dashboard/permission',RoleController::class)->middleware(['auth','verified']);
 
 Route::controller(PostJobController::class)->middleware(['auth','verified'])->group(function () {
     Route::get('/job/create','create')->name('post.job');
@@ -64,6 +65,7 @@ Route::controller(PostJobController::class)->middleware(['auth','verified'])->gr
 
 Route::get('data-tables-data', [\App\Http\Controllers\DataTablesController::class ,'data'])->name('data.tables.data');
 Route::get('data-tables-data/roles', [\App\Http\Controllers\DataTablesController::class ,'getRoles'])->name('data.tables.getRoles');
+Route::get('data-tables-data/permissions', [\App\Http\Controllers\DataTablesController::class ,'getPermissions'])->name('data.tables.getPermissions');
 
 Route::get('/applicant', [\App\Http\Controllers\ApplicantController::class, 'index'])->name('applicant.index');
 Route::get('/applicant/{slug}', [\App\Http\Controllers\ApplicantController::class, 'show'])->name('applicant.show');

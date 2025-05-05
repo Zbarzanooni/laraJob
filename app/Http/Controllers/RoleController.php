@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
+use App\Services\ResultService;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Http\Request;
+use PHPUnit\Exception;
 
 class RoleController extends Controller
 {
@@ -21,7 +26,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $permissions = Permission::all();
+        $users = User::all();
+        return view('roles.create',compact('permissions','users'));
     }
 
     /**
@@ -29,7 +36,27 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'permission_id'=>'required',
+            'user_id'=>'required',
+        ]);
+        try {
+            if ($request) {
+                $role = Role::create([
+                    'name' => $request->name,
+                    'description' => $request->description
+                ]);
+                $role->permissions()->sync(array_values($request->permission_id));
+                $role->users()->sync(array_values($request->user_id));
+                return $role;
+            }
+        }catch (Exception $exception){
+                app()[ExceptionHandler::class]->report($exception);
+                return $exception->getMessage();
+            }
+
+
     }
 
     /**
@@ -45,7 +72,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
+       return view('roles.edit',compact('role'));
     }
 
     /**
