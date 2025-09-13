@@ -18,7 +18,7 @@
                                     <span class="text-danger">{{$errors->first('email')}}</span>
                                 @endif
                                 <div class="form-group p-2">
-                                    <input type="text" class="form-control" name="password" placeholder="رمز عبور ">
+                                    <input type="password" class="form-control" name="password" placeholder="رمز عبور ">
                                 </div>
                                 @if($errors->has('password'))
                                     <span class="text-danger">{{$errors->first('password')}}</span>

@@ -14,21 +14,26 @@ class RoleAndPermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        // create permissions
-        Permission::create(['name' => 'edit']);
-        Permission::create(['name' => 'delete']);
-        Permission::create(['name' => 'publish']);
-        Permission::create(['name' => 'unpublish']);
+        //roles
+        $roles  = ['admin','employer','user'];
+        foreach ($roles as $role) {
+            Role::firstOrCreate(['name' => $role]);
+        }
 
+        //permission
+        $permissions = ['create job', 'edit job', 'delete job', 'apply job'];
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate(['name' => $permission]);
+        }
 
-        // create roles and assign created permissions
+        // اختصاص دسترسی‌ها به نقش‌ها
+        $admin = Role::where('name', 'admin')->first();
+        $admin->Permissions()->attach(Permission::all());
 
-        // this can be done as separate statements
-        $role = Role::create(['name' => 'writer']);
+        $employer = Role::where('name', 'employer')->first();
+        $employer->Permissions()->attach([1,2,3]);
 
-        // or may be done by chaining
-        $role = Role::create(['name' => 'moderator']) ;
-
-        $role = Role::create(['name' => 'super-admin']);
+        $user = Role::where('name', 'user')->first();
+        $user->Permissions()->attach([4]);
     }
 }
