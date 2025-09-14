@@ -4,17 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostJobRequest;
 use App\Http\Requests\UpdatePostJobRequest;
-use App\Models\listing;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use PhpParser\Node\Scalar\String_;
-use Yajra\DataTables\DataTables;
+use App\Models\JobListing;
 
 class PostJobController extends Controller
 {
     public  function index()
     {
-        $jobs = Listing::all();
+        $jobs = JobListing::all();
         return view('job.index',compact('jobs'));
     }
     public function create()
@@ -25,7 +21,7 @@ class PostJobController extends Controller
     public function store(PostJobRequest $request)
     {
     $imgPath = $request->file('image')->store('image', 'public');
-    Listing::create([
+        JobListing::create([
         'title'      =>$request->title,
         'description'=>$request->description,
         'salary'     =>$request->salary,
@@ -42,13 +38,13 @@ class PostJobController extends Controller
 
     public function edit($job)
     {
-        $job = Listing::find($job);
+        $job = JobListing::find($job);
       return view('job.formEdit', compact('job'));
     }
 
     public function update(UpdatePostJobRequest $request, $id)
     {
-        $job = Listing::find($id);
+        $job = JobListing::find($id);
         if ($request->has('image')){
             $imgPath = $request->file('image')->store('image', 'public');
             $job->update(['image'=>$imgPath]);
@@ -57,7 +53,7 @@ class PostJobController extends Controller
         return redirect()->route('index.job');
     }
 
-    public function destroy(Listing $id)
+    public function destroy(JobListing $id)
     {
         $id->delete();
         return redirect()->route('index.job');

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\InterviewRequest;
-use App\Models\Listing;
+use App\Models\JobListing;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -16,7 +16,7 @@ class ApplicantController extends Controller
     {
 
         if ($request->ajax()) {
-            $data = Listing::withCount('users')->where('user_id',auth()->user()->id)->get();
+            $data = JobListing::withCount('users')->where('user_id',auth()->user()->id)->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('view', function ($data){
@@ -30,25 +30,28 @@ class ApplicantController extends Controller
 
     public function show($slug)
     {
-        $job = Listing::where('slug', $slug)->first();
+        $job = JobListing::where('slug', $slug)->first();
      //   $applicants = $job->users()->get();
 
         return view('applicants.show', compact('job'));
     }
 
-    public function interview($listingId , $userId)
+    public function interview($jobId , $userId)
     {
-        $listing = Listing::find($listingId);
-        if ($listing){
-            $listing->users()->updateExistingPivot($userId,['interview' => true ]);
+        $job = JobListing::find($jobId);
+        if ($job){
+            $job->users()->updateExistingPivot($userId,['interview' => true ]);
             $user = User::find($userId);
-            Mail::to($user->email)->queue(new InterviewRequest($user->name, $listing->title));
+            Mail::to($user->email)->queue(new InterviewRequest($user->name, $job->title));
             return back();
         }
     }
 
-    public function sendResume(Request $request)
+    public function sendResume($jobId)
     {
-        dd($request);
+        $jos = JobListing::find($jobId);
+        if ($jos){
+        $jos->users()->attach([auth()->user()->id]);
+        }
     }
 }

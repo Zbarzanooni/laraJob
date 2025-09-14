@@ -70,5 +70,5 @@ Route::get('data-tables-data/permissions', [\App\Http\Controllers\DataTablesCont
 Route::get('/applicant', [\App\Http\Controllers\ApplicantController::class, 'index'])->name('applicant.index');
 Route::get('/applicant/{slug}', [\App\Http\Controllers\ApplicantController::class, 'show'])->name('applicant.show');
 Route::post('/interview/{listing_id}/{user_id}', [\App\Http\Controllers\ApplicantController::class, 'interview'])->name('applicant.interview');
-Route::post('/send/resume', [\App\Http\Controllers\ApplicantController::class, 'sendResume'])->name('applicant.sendResume');
+Route::get('/send/resume/{job}', [\App\Http\Controllers\ApplicantController::class, 'sendResume'])->name('applicant.sendResume');
 

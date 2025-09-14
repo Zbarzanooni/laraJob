@@ -15,44 +15,10 @@
                    <p>{{$job->job_type}}</p>
                </div>
                <div class="card-footer ">
-                   <form action="{{route('applicant.sendResume')}}" method="post">@csrf
-                   <button type="submit" class="btn btn-success d-flex justify-content-center m-1" id="send-resume">ارسال رزومه </button>
-                   </form>
+                   <a href="{{route('applicant.sendResume',$job->id)}}" class="btn btn-success d-flex justify-content-center m-1" id="send-resume">ارسال رزومه </a>
                </div>
            </div>
        </div>
    </div>
 @endsection
-<script>
-    $(form).on('submit', function(event){
 
-
-        var url = $(this).attr('data-action');
-
-        $.ajax({
-            url: url,
-            method: 'POST',
-            data: new FormData(this),
-            dataType: 'JSON',
-            contentType: false,
-            cache: false,
-            processData: false,
-            success:function(response)
-            {
-                var row = '<tr>';
-                row += '<th scope="row">'+response.id+'</th>';
-                row += '<td>'+response.title+'</td>';
-                row += '<td>'+response.title+'</td>';
-                row += '</tr>';
-
-                $(table).find('tbody').prepend(row);
-
-
-                $(form).trigger("reset");
-                $(modal).modal('hide');
-            },
-            error: function(response) {
-            }
-        });
-    });
-</script>

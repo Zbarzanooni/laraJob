@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Listing;
+use App\Models\JobListing;
 use App\Models\Permission;
 use App\Models\Role;
 use Carbon\Carbon;
@@ -14,7 +14,7 @@ class DataTablesController extends Controller
     public function data(Request $request)
     {
         if ($request->ajax()) {
-            $data = Listing::all();
+            $data = JobListing::all();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('deadline', function ($data){

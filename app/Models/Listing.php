@@ -11,6 +11,7 @@ class Listing extends Model
 {
      use HasSlug;
     use HasFactory ;
+    protected $table = 'job_listings';
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()

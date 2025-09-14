@@ -31,7 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'plan'
     ];
 
-    public function listig(){
+    public function JobListing(){
         return $this->belongsToMany(User::class,'listing_user','user_id', 'listing_id')
             ->withPivot('interview')
             ->withTimestamps();
