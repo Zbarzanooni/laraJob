@@ -1,5 +1,8 @@
-@extends('layouts.admin.main')
-
+@if(auth()->user()->user_type == 'employer')
+    @extends('layouts.admin.main')
+@else
+    @extends('layouts')
+@endif
 @section('content')
     <div class="container">
         <div class="row justify-content-center">

@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\UserRegistrationRequest;
+use App\Models\User;
+use App\Services\ProfileService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function __construct(public UserService $userService)
-    {
-    }
   public function index()
   {
       return view('layouts.app');
@@ -49,10 +49,8 @@ class UserController extends Controller
     public function postLogin(LoginUserRequest $request)
     {
         $info = $request->only('email', 'password');
-        if (Auth::attempt($info))
-        {
-            if (\auth()->user()->user_type=='employer')
-            {
+        if (Auth::attempt($info)) {
+            if (\auth()->user()->user_type=='employer') {
                 return redirect()->route('dashboard.profile');
             }else
             return redirect('/');
@@ -64,19 +62,5 @@ class UserController extends Controller
     {
         Auth::logout();
         return redirect()->route('login')->with('success', 'کاربر با موفقیت خارج شد.');
-    }
-
-    public function ProfileSeeker(){
-
-      return view('profile.profileSeeker');
-    }
-    public function UpdateProfileSeeker(Request $request)
-    {
-        if ($request->has('profile_pic')){
-            $imgPath = $request->file('profile_pic')->store('image', 'public');
-            \auth()->user()->update(['profile_pic'=>$imgPath]);
-        }
-        \auth()->user()->update($request->except('profile_pic'));
-        return back();
     }
 }
