@@ -23,7 +23,7 @@
                             </button>
                             <ul class="dropdown-menu bg-success">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{route('user.profile.seeker')}}">پروفایل </a>
+                                    <a class="nav-link" href="{{route('profile')}}">پروفایل </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('logout')}}">خروج </a>

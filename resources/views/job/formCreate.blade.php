@@ -39,6 +39,18 @@
             @if($errors->has('salary'))
                 <span class="text-danger">{{$errors->first('salary')}}</span>
             @endif
+           <div class="form-group">
+               <select id="province" name="province_id">
+                   <option value="">انتخاب استان</option>
+                   @foreach($provinces as $province)
+                       <option value="{{ $province->id }}">{{ $province->name }}</option>
+                   @endforeach
+               </select>
+
+               <select id="city" name="city_id">
+                   <option value="">انتخاب شهر</option>
+               </select>
+           </div>
             <div class="form-group">
                 <label for=""> ادرس </label>
                 <input type="text" name="address" class="form-control">

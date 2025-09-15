@@ -51,7 +51,7 @@ class UserController extends Controller
         $info = $request->only('email', 'password');
         if (Auth::attempt($info)) {
             if (\auth()->user()->user_type=='employer') {
-                return redirect()->route('dashboard.profile');
+                return redirect()->route('profile');
             }else
             return redirect('/');
         }

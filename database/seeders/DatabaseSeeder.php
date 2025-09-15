@@ -31,6 +31,8 @@ class DatabaseSeeder extends Seeder
 //        }
 
         //roles and permission
-        $this->call(RoleAndPermissionSeeder::class);
+       // $this->call(RoleAndPermissionSeeder::class);
+
+        $this->call([ProvinceCitySeeder::class]);
     }
 }

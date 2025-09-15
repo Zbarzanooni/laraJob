@@ -1,8 +1,7 @@
-@if(auth()->user()->user_type == 'employer')
-    @extends('layouts.admin.main')
-@else
-    @extends('layouts')
-@endif
+@php
+    $layout = auth()->user()->isEmployer() ? 'layouts.admin.main' : 'layouts.app'
+@endphp
+@extends($layout)
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -38,7 +37,7 @@
 
             <div class="col-md-6 p-5" id="change-pass">
                 <h3>تغییر رمز عبور</h3>
-                <form action="{{route('update.user.password')}}" method="post"  id="new-password-form">@csrf
+                <form action="{{route('update.password')}}" method="post"  id="new-password-form">@csrf
                     <div class="form-group">
                         <label for="" >پسورد فعلی  </label>
                         <input type="password" class="form-control" name="current_password" >
