@@ -8,7 +8,7 @@
                     Dashboard
                 </a>
                 <div class="sb-sidenav-menu-heading">Interface</div>
-                @can('show')
+
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                    مشاغل
@@ -20,7 +20,7 @@
                         <a class="nav-link" href="{{route('index.job')}}"> شغل ها</a>
                     </nav>
                 </div>
-                @endcan
+
                 <a class="nav-link" href="{{route('applicant.index')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                     متقاضیان

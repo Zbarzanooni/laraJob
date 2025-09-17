@@ -20,7 +20,7 @@ class JobListing extends Model
     }
     protected $fillable =
         [
-            'id','title','description','salary','rolse','address','deadline','image','job_type','user_id'
+            'id','title','description','salary','rolse','address','deadline','image','job_type','user_id','province_id','city_id',
         ];
 
     public function users(){
@@ -32,6 +32,13 @@ class JobListing extends Model
     public function profile()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function province(){
+        return $this->belongsTo(Province::class, 'province_id');
+    }
+    public function city(){
+        return $this->belongsTo(City::class, 'city_id');
     }
 
 }

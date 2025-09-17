@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostJobRequest;
 use App\Http\Requests\UpdatePostJobRequest;
+use App\Models\City;
 use App\Models\JobListing;
+use App\Models\Province;
 
 class PostJobController extends Controller
 {
@@ -15,7 +17,8 @@ class PostJobController extends Controller
     }
     public function create()
     {
-        return view('job.formCreate');
+        $provinces = Province::all();
+        return view('job.formCreate', compact('provinces'));
     }
 
     public function store(PostJobRequest $request)
@@ -30,7 +33,9 @@ class PostJobController extends Controller
         'deadline'   =>$request->date,
         'user_id'    =>auth()->user()->id,
         'image'      =>$imgPath,
-        'job_type'   =>$request->job_type
+        'job_type'   =>$request->job_type,
+        'city_id'    =>$request->city_id ?? null,
+        'province_id' =>$request->province_id ?? null,
 
     ]);
     return back();
@@ -38,8 +43,10 @@ class PostJobController extends Controller
 
     public function edit($job)
     {
-        $job = JobListing::find($job);
-      return view('job.formEdit', compact('job'));
+        $job = JobListing::with('province','city')->find($job);
+        $city = City::find($job->city_id);
+        $provinces = Province::all();
+      return view('job.formEdit', compact('job','provinces','city'));
     }
 
     public function update(UpdatePostJobRequest $request, $id)

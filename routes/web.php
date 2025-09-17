@@ -69,4 +69,4 @@ Route::get('/applicant', [\App\Http\Controllers\ApplicantController::class, 'ind
 Route::get('/applicant/{slug}', [\App\Http\Controllers\ApplicantController::class, 'show'])->name('applicant.show');
 Route::post('/interview/{listing_id}/{user_id}', [\App\Http\Controllers\ApplicantController::class, 'interview'])->name('applicant.interview');
 Route::get('/send/resume/{job}', [\App\Http\Controllers\ApplicantController::class, 'sendResume'])->name('applicant.sendResume');
-
+Route::get('/cities',[\App\Http\Controllers\ProvinceController::class, 'cities'])->name('getCities');
