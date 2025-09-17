@@ -40,5 +40,21 @@ class JobListing extends Model
     public function city(){
         return $this->belongsTo(City::class, 'city_id');
     }
+    public static function getJobType():array
+    {
+        return [
+            'full-time' => 'تمام وقت',
+            'part-time' => 'پاره وقت ',
+            'internship' => 'دورکاری '
+        ];
+    }
+    public static function getExperienceLevels(): array
+    {
+        return [
+            'junior' => 'Junior',
+            'mid' => 'Mid',
+            'senior' => 'Senior',
+        ];
+    }
 
 }
