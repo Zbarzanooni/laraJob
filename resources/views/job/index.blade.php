@@ -72,7 +72,6 @@
                     { data: 'salary', name: 'salary' },
                     { data: 'action', name: 'action' },
                 ]
-
             });
 
         })

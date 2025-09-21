@@ -43,8 +43,8 @@ class JobListing extends Model
     public static function getJobType():array
     {
         return [
-            'full-time' => 'تمام وقت',
-            'part-time' => 'پاره وقت ',
+            'fullTime' => 'تمام وقت',
+            'partTime' => 'پاره وقت ',
             'internship' => 'دورکاری '
         ];
     }
