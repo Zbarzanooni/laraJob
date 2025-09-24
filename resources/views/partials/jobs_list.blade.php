@@ -1,4 +1,3 @@
-<div class="row" id="listing_jobs">
 @forelse($jobs as $job)
     <div class="col-md-3 p-4 m-4">
         <div class="card" style="width: 18rem">
@@ -20,4 +19,3 @@
 @empty
     <p class="text-center">هیچ شغلی یافت نشد.</p>
     @endforelse
-    </div>

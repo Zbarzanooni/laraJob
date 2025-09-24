@@ -11,15 +11,7 @@ class HomeController extends Controller
     protected $filter = [];
    public function index(Request $request)
    {
-       $query = JobListing::query();
-
-       if ($request->filled('job_type')) $query->where('type', $request->job_type);
-       if ($request->filled('province')) $query->where('province_id', $request->province);
-       if ($request->filled('experience_level')) $query->where('experience_level', $request->experience_level);
-       if ($request->filled('title')) $query->where('title', 'like', '%'.$request->title.'%');
-
-       $jobs = $query->get();
-
+       $jobs = $this->getFilter($request);
        $provinces = Province::all();
        if ($request->ajax()){
            $html = view('partials.jobs_list', compact('jobs'))->render();

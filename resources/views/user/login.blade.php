@@ -1,9 +1,10 @@
-@include('layouts.app')
+@include('layouts.user.app')
 
-<div class="controller"  style="background-color: #e9e5e5">
-    <div class="row " >
+<div class="controller" style="background-color: #e9e5e5">
+    <div class="row ">
         <div class="col-md-6">
-            <a href="{{route('create.seeker')}}"><img src="{{asset('image/register-in-manamo-site-and-application.jpg')}}" class="" alt="" /></a>
+            <a href="{{route('create.seeker')}}"><img
+                        src="{{asset('image/register-in-manamo-site-and-application.jpg')}}" class="" alt=""/></a>
         </div>
         <div class="col-md-6 mt-5 ">
             <div class="d-flex align-items-center justify-content-center">
@@ -23,8 +24,9 @@
                                 @if($errors->has('password'))
                                     <span class="text-danger">{{$errors->first('password')}}</span>
                                 @endif
-                                <div class="form-group d-flex justify-content-center m-2" style="background-color: #399d39">
-                                    <button class="btn text-white "> ورود </button>
+                                <div class="form-group d-flex justify-content-center m-2"
+                                     style="background-color: #399d39">
+                                    <button class="btn text-white "> ورود</button>
                                 </div>
                             </form>
                         </div>
