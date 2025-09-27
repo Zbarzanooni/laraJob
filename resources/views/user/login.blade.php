@@ -1,5 +1,5 @@
-@include('layouts.user.app')
-
+@extends('layouts.user.app')
+@section('content')
 <div class="controller" style="background-color: #e9e5e5">
     <div class="row ">
         <div class="col-md-6">
@@ -36,3 +36,4 @@
         </div>
     </div>
 </div>
+@endsection

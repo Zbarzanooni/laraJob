@@ -8,6 +8,7 @@
                     <form action="" id="filters-form">
                         @csrf
                         <div class="row">
+
                             <div class="col-md-3">
                                 <input type="text" class="filter form-control" name="job-name"
                                        placeholder="عنوان شغلی ..">
@@ -49,8 +50,14 @@
                     </form>
                 </div>
             </div>
-            <div class="row" id="jobs-container">
-                @include('partials.jobs_list', ['jobs' => $jobs])
+            <div class="row" id="jobs-container" >
+                    <div class="col-md-3 mb-0">
+                        @include('layouts.user.sidebar')
+                    </div>
+                <div class="col-md-9">
+                    @include('partials.jobs_list', ['jobs' => $jobs])
+                </div>
+
             </div>
     </div>
 @endsection

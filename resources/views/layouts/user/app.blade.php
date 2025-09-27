@@ -3,17 +3,15 @@
 @include('layouts.user.header')
 <body>
 @include('layouts.user.navbar')
-    <div id="layoutSidenav_content" class ="bg-light">
-        <div class="col-md-2">
-            @include('layouts.user.sidebar')
-        </div>
-        <div class="col-md-8">
-            @yield('content')
-        </div>
-        @include('layouts.user.footer')
-    </div>
+          <div class="container">
+           <div class="row">
+               @yield('content')
+           </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          </div>
+
+   @include('layouts.user.footer')
+
     @yield('script')
 </body>
 </html>
