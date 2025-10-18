@@ -49,9 +49,13 @@ class ApplicantController extends Controller
 
     public function sendResume($jobId)
     {
-        $jos = JobListing::find($jobId);
-        if ($jos){
-        $jos->users()->attach([auth()->user()->id]);
+        $jobs = JobListing::find($jobId);
+
+        if ($jobs and $jobs->users->contains('id', auth()->id())) {
+        return back()->with('error', 'شما قبلاً برای این شغل درخواست داده‌اید.');
         }
+        $jobs->users()->attach([auth()->user()->id]);
+
+        return back()->with('success', 'درخواست شما ثبت شد');
     }
 }
