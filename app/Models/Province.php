@@ -9,7 +9,7 @@ class Province extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name','priority'];
 
     public function cities(){
         return $this->hasMany(City::class);

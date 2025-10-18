@@ -9,14 +9,10 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     protected $filter = [];
-   public function index(Request $request)
+   public function index()
    {
-       $jobs = $this->getFilter($request);
-       $provinces = Province::all();
-       if ($request->ajax()){
-           $html = view('partials.jobs_list', compact('jobs'))->render();
-           return response()->json(['html'=> $html ]);
-       }
+       $jobs =  JobListing::all();
+       $provinces = Province::orderBy('priority', 'desc')->get();
        return view('home', compact('jobs', 'provinces'));
    }
 
@@ -26,19 +22,22 @@ class HomeController extends Controller
        return view('user.job-show', compact('job'));
    }
 
-   private function getFilter(Request $request)
+   public function getFilter(Request $request)
    {
        $query = JobListing::query();
        if (isset($request->job_type)){
-          $query->where('job_type', $request->job_type);
+          $query->whereIn('job_type', $request->job_type);
        }
        if (isset($request->experience_level)){
-           $query->where('experience_level', $request->get('experience_level'));
+           $query->whereIn('experience_level', $request->get('experience_level'));
+
        }
-       if (isset($request->provinces)){
-           $query->where('province_id', $request->provinces);
+       if (isset($request->province_id)){
+           $query->whereIn('province_id', $request->province_id);
        }
-        return $query->get();
+       $jobs = $query->get();
+       $html = view('partials.jobs_list', compact('jobs'))->render();
+       return response()->json(['html'=> $html]);
    }
 
 }

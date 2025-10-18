@@ -19,6 +19,7 @@ use \App\Http\Controllers\RoleController;
 */
 
 Route::get('/',[HomeController::class, 'index'])->name('home')->middleware(['auth','verified']);
+Route::get('/getFilter',[HomeController::class, 'getFilter'])->name('getFilter')->middleware(['auth','verified']);
 Route::get('/show/{slug}',[HomeController::class, 'show'])->name('home.show');
 Route::get('/email/verify/{id}/{hash}', function (\Illuminate\Foundation\Auth\EmailVerificationRequest $request) {
     $request->fulfill();
