@@ -1,5 +1,5 @@
 @php
-    $layout = auth()->user()->isEmployer() ? 'layouts.admin.main' : 'layouts.app'
+    $layout = auth()->user()->isEmployer() ? 'layouts.admin.main' : 'layouts.user.app'
 @endphp
 @extends($layout)
 @section('content')
@@ -7,6 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-md-4 p-5">
                 <ul>
+                   <li class="list-group " onclick="userMessage()">پیام ها </li>
                    <li class="list-group " onclick="userInfo()">اطلاعات حساب کاربری</li>
                     <li class="list-group " onclick="changePass()">تغییر رمز عبور</li>
                     <li class="list-group " onclick="uploadResome()">اپلود رزومه</li>
@@ -15,6 +16,21 @@
             @if(Session::has('message'))
                 <p class="alert alert-info">{{ Session::get('message') }}</p>
             @endif
+            <div class="col-md-6 p-5" id="user-message">
+                <h3>پیام ها  </h3>
+                @if(auth()->user()->notifications)
+                    @foreach(auth()->user()->notifications as $notification)
+                        <div class="alert alert-info">
+                            <strong>{{ $notification->data['title'] }}</strong><br>
+                            {{ $notification->data['message'] }}
+                        </div>
+                    @endforeach
+                    @else
+                    <div class="employ">
+                        <p>هنوز پیامی نداری:)</p>
+                    </div>
+                @endif
+            </div>
             <div class="col-md-6 p-5" id="user-info">
                 <h3>اطلاعات حساب کاربری </h3>
                 <form action="{{route('update.profile')}}" method="post" enctype="multipart/form-data">@csrf
@@ -34,7 +50,6 @@
                     </div>
                 </form>
             </div>
-
             <div class="col-md-6 p-5" id="change-pass">
                 <h3>تغییر رمز عبور</h3>
                 <form action="{{route('update.password')}}" method="post"  id="new-password-form">@csrf
@@ -72,23 +87,34 @@
 
     </div>
     <script>
-        document.getElementById("user-info").style.display = "block";
+
+        document.getElementById("user-message").style.display = "block";
+        document.getElementById("user-info").style.display = "none";
         document.getElementById("change-pass").style.display = "none";
         document.getElementById("upload-resome").style.display = "none";
         function userInfo() {
             document.getElementById("user-info").style.display = "block";
+            document.getElementById("user-message").style.display = "none";
             document.getElementById("change-pass").style.display = "none";
             document.getElementById("upload-resome").style.display = "none";
         }
         function changePass(){
             document.getElementById("user-info").style.display = "none";
+            document.getElementById("user-message").style.display = "none";
             document.getElementById("change-pass").style.display = "block";
             document.getElementById("upload-resome").style.display = "none";
         }
         function uploadResome(){
             document.getElementById("user-info").style.display = "none";
+            document.getElementById("user-message").style.display = "none";
             document.getElementById("change-pass").style.display = "none";
             document.getElementById("upload-resome").style.display = "block";
+        }
+        function userMessage(){
+            document.getElementById("user-message").style.display = "block";
+            document.getElementById("user-info").style.display = "none";
+            document.getElementById("change-pass").style.display = "none";
+            document.getElementById("upload-resome").style.display = "none";
         }
     </script>
     <script>

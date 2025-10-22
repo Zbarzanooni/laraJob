@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Mail\InterviewRequest;
 use App\Models\JobListing;
 use App\Models\User;
+use App\Notifications\InterviewNotification;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\DataTables;
@@ -42,19 +44,21 @@ class ApplicantController extends Controller
         if ($job){
             $job->users()->updateExistingPivot($userId,['interview' => true ]);
             $user = User::find($userId);
-            Mail::to($user->email)->queue(new InterviewRequest($user->name, $job->title));
-            return back();
+            $user->notify(new InterviewNotification($job));
+            return back()->with('success', 'کاربر با موفقیت برای مصاحبه دعوت شد.');
         }
+        return back()->with('error', 'شغل مورد نظر یافت نشد.');
     }
 
-    public function sendResume($jobId)
+    public function sendResume($jobId, NotificationService $notificationService)
     {
-        $jobs = JobListing::find($jobId);
-
-        if ($jobs and $jobs->users->contains('id', auth()->id())) {
+        $job = JobListing::find($jobId);
+        $user = auth()->user();
+        if ($job and $job->users->contains('id', $user->id)) {
         return back()->with('error', 'شما قبلاً برای این شغل درخواست داده‌اید.');
         }
-        $jobs->users()->attach([auth()->user()->id]);
+        $job->users()->attach([$user->id]);
+        $notificationService->jobApplied($user, $job);
 
         return back()->with('success', 'درخواست شما ثبت شد');
     }
