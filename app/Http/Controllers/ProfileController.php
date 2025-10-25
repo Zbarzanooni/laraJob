@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Wallet;
+use App\Models\WalletTransaction;
 use App\Services\ProfileService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -15,7 +19,16 @@ class ProfileController extends Controller
 
     public function profile()
     {
-        return view('profile.profile');
+        $user = auth()->user();
+
+        if (!$user->wallet) {
+            $user->wallet()->create(['balance' => 0]);
+        }
+
+        $wallet = $user->wallet;
+        $transactions = $wallet->transactions() ? $wallet->transactions()->latest()->get(): [];
+
+        return view('profile.profile', compact('wallet', 'transactions'));
     }
 
     public function updateProfile(Request $request)

@@ -7,10 +7,11 @@
         <div class="row justify-content-center">
             <div class="col-md-4 p-5">
                 <ul>
-                   <li class="list-group " onclick="userMessage()">پیام ها </li>
-                   <li class="list-group " onclick="userInfo()">اطلاعات حساب کاربری</li>
-                    <li class="list-group " onclick="changePass()">تغییر رمز عبور</li>
-                    <li class="list-group " onclick="uploadResome()">اپلود رزومه</li>
+                    <li class="list-group " onclick="showTab('user-message')">پیام ها </li>
+                    <li class="list-group " onclick="showTab('user-wallet')">کیف پول من </li>
+                    <li class="list-group " onclick="showTab('user-info')">اطلاعات حساب کاربری</li>
+                    <li class="list-group " onclick="showTab('change-pass')">تغییر رمز عبور</li>
+                    <li class="list-group " onclick="showTab('upload-resome')">اپلود رزومه</li>
                 </ul>
             </div>
             @if(Session::has('message'))
@@ -50,6 +51,9 @@
                     </div>
                 </form>
             </div>
+            <div class="col-md-6 p-5" id="user-wallet">
+              @include('wallet.index')
+            </div>
             <div class="col-md-6 p-5" id="change-pass">
                 <h3>تغییر رمز عبور</h3>
                 <form action="{{route('update.password')}}" method="post"  id="new-password-form">@csrf
@@ -70,7 +74,6 @@
                     </div>
                 </form>
             </div>
-
             <div class="col-md-6 p-5" id="upload-resome">
                 <h3>اپلود رزومه </h3>
                 <form action="{{route('upload.resume')}}" method="post" enctype="multipart/form-data">@csrf
@@ -87,35 +90,13 @@
 
     </div>
     <script>
-
-        document.getElementById("user-message").style.display = "block";
-        document.getElementById("user-info").style.display = "none";
-        document.getElementById("change-pass").style.display = "none";
-        document.getElementById("upload-resome").style.display = "none";
-        function userInfo() {
-            document.getElementById("user-info").style.display = "block";
-            document.getElementById("user-message").style.display = "none";
-            document.getElementById("change-pass").style.display = "none";
-            document.getElementById("upload-resome").style.display = "none";
+        function showTab(tabId) {
+            const tabs = ["user-message", "user-info", "change-pass", "upload-resome","user-wallet"];
+            tabs.forEach(id => {
+                document.getElementById(id).style.display = (id === tabId) ? "block" : "none";
+            });
         }
-        function changePass(){
-            document.getElementById("user-info").style.display = "none";
-            document.getElementById("user-message").style.display = "none";
-            document.getElementById("change-pass").style.display = "block";
-            document.getElementById("upload-resome").style.display = "none";
-        }
-        function uploadResome(){
-            document.getElementById("user-info").style.display = "none";
-            document.getElementById("user-message").style.display = "none";
-            document.getElementById("change-pass").style.display = "none";
-            document.getElementById("upload-resome").style.display = "block";
-        }
-        function userMessage(){
-            document.getElementById("user-message").style.display = "block";
-            document.getElementById("user-info").style.display = "none";
-            document.getElementById("change-pass").style.display = "none";
-            document.getElementById("upload-resome").style.display = "none";
-        }
+        showTab("user-message");
     </script>
     <script>
         $(document).ready(function(){

@@ -65,5 +65,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isSeeker(){
         return $this->user_type  === 'seeker';
     }
+
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            $user->wallet()->create(['balance' => 0]);
+        });
+    }
+
+    public function wallet(){
+        return $this->hasOne(Wallet::class);
+    }
 }
 
